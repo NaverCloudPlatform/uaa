@@ -166,7 +166,7 @@
                             <entry key="secret" value="password"/>
                             <entry key="authorized-grant-types" value="client_credentials"/>
                             <entry key="authorities" value="uaa.none"/>
-                            <entry key="use-bcrypt-prefix" value="true"/>
+                            <entry key="use-bcrypt-prefix" value="false"/>
                         </map>
                     </entry>
                     <entry key="jku_test">
