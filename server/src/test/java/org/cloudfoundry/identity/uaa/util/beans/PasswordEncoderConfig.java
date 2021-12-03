@@ -7,9 +7,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class PasswordEncoderConfig {
 
     private static Logger logger = LoggerFactory.getLogger(PasswordEncoderConfig.class);
@@ -17,23 +14,13 @@ public class PasswordEncoderConfig {
     @Bean
     public PasswordEncoder nonCachingPasswordEncoder() {
 
-        PasswordEncoder noopPasswordEncoder = new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return rawPassword.toString();
-            }
+        String encodingId = "noop";
 
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return rawPassword.toString().equals(encodedPassword);
-            }
-        };
+        logger.info(String.format("TEST CONTEXT - Building DelegatingPasswordEncoder with desired encoder {%s}", encodingId));
 
-        logger.info("TEST CONTEXT - Building DelegatingPasswordEncoder with {bcrypt} and {noop} only");
+        DelegatingPasswordEncoder passwordEncoder = (DelegatingPasswordEncoder)PasswordEncoderFactories.createDelegatingPasswordEncoder(encodingId);
+        passwordEncoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
 
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put("bcrypt", new BCryptPasswordEncoder());
-        encoders.put("noop", noopPasswordEncoder);
-        return new DelegatingPasswordEncoder("noop", encoders);
+        return passwordEncoder;
     }
 }

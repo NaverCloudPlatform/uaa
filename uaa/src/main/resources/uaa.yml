@@ -21,6 +21,7 @@
 #  abandonedtimeout: 300
 #  evictionintervalms: 15000
 #  caseinsensitive: false
+#  passwordEncodingId: bcrypt
 
 #note - this is not the place to set these properties
 # - they are just here for documentation purposes
@@ -38,6 +39,7 @@
 #  url: jdbc:mysql://localhost:3306/uaa
 #  username: root
 #  password: blabla
+#  passwordEncodingId: bcrypt
 
 #mysql commands that were run
 #create database uaa;
